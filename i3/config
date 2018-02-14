@@ -24,6 +24,7 @@ bar {
   tray_output         none  # do not show tray output
   workspace_buttons   no    # do not show workspace buttons
   height              35    # same height as polybar
+  output              DVI-I-1
 
   # prevent any accidental clicks/scrolls
   bindsym button1 nop
@@ -123,7 +124,7 @@ set $ws3 3
 assign [class="discord"] $ws2
 assign [class="Chromium"] $ws3
 
-exec --no-startup-id discord-canary
+exec --no-startup-id discord
 
 ## Reload/Restart i3
 bindsym $mod+Shift+r reload
@@ -157,9 +158,9 @@ bindsym XF86AudioMute exec pulseaudio-ctl mute
 
 
 ## Wallpaper/Colours
-exec --no-startup-id feh --bg-fill ~/Images/wp/used.jpg
+exec --no-startup-id feh --bg-fill ~/Pictures/wp/used.jpg
 exec --no-startup-id xrdb -merge ~/.Xresources
-exec_always --no-startup-id wal -n -i ~/Images/wp/used.jpg
+exec_always --no-startup-id wal -n -i ~/Pictures/wp/used.jpg
 
 
 ## Window Split Direction
