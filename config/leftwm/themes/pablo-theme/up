@@ -1,0 +1,87 @@
+#!/usr/bin/env bash
+export SCRIPTPATH="$( cd "$(dirname "$0")" ; pwd -P )"
+
+
+# [ BASIC ]
+
+# down the last running theme
+if [ -f "/tmp/leftwm-theme-down" ]; then
+    /tmp/leftwm-theme-down
+    rm /tmp/leftwm-theme-down
+fi
+ln -s $SCRIPTPATH/down /tmp/leftwm-theme-down
+
+# set the theme.toml config
+echo "LoadTheme $SCRIPTPATH/theme.toml" > $XDG_RUNTIME_DIR/leftwm/command-0.pipe
+
+
+
+
+
+# [ LAUNCH AT STARTUP ]
+
+# xss-lock with i3lock for inactivity
+if [ -x "$(command -v xss-lock)" ]; then
+  xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork &
+fi
+
+# gnome keyring
+if [ -x "$(command -v gnome-keyring-daemon)" ]; then
+  gnome-keyring-daemon --start &
+fi
+
+# low battery alert
+if [ -x "$(command -v $HOME/.local/bin/i3-battery-popup)" ]; then
+  $HOME/.local/bin/i3-battery-popup &
+fi
+
+# picom
+if [ -x "$(command -v picom)" ]; then
+  picom --experimental-backends --config ~/.config/leftwm/themes/current/picom.conf &> /dev/null &
+fi
+
+if [ -x "$(command -v nm-applet)" ]; then
+  nm-applet &
+fi
+
+if [ -x "$(command -v eww)" ]; then
+  eww daemon &
+fi
+
+
+
+
+# [ WALLPAPERS ]
+
+if [ -x "$(command -v feh)" ]; then
+  feh --bg-fill ~/.config/wallpaper/wallpaper.jpg
+fi
+
+
+
+
+
+# [ POLYBAR ]
+
+# pkill polybar &
+# index=0
+# monitor="$(polybar -m | grep +0+0 | sed s/:.*// | tac)"
+# leftwm-state -q -n -t $SCRIPTPATH/sizes.liquid | sed -r '/^\s*$/d' | \
+# while read -r width x y
+# do 
+#   barname="main"
+#   monitor="$(polybar -m | awk -v i="$(( index + 1 ))" 'NR==i{print}' | sed s/:.*// | tr -d '\n')"
+#   monitor=$monitor width=$(( width - 30 )) polybar -c "$SCRIPTPATH"/polybar.config $barname &
+#   let index=index+1
+# done
+
+# [ eww bar ]
+
+sleep 1
+index=0
+sizes=( $(leftwm-state -q -n -t $SCRIPTPATH/sizes.liquid | sed -r '/^\s*$/d' ) )
+for size in "${sizes[@]}"
+do
+    eww -c "$SCRIPTPATH/eww-bar" open bar$index
+  let index=index+1
+done

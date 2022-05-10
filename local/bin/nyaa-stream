@@ -1,0 +1,69 @@
+#!/bin/sh
+
+mkdir -p $HOME/.cache/nyaa-stream
+
+menu="rofi -dmenu -i -l 25"
+base_url="https://nyaa.si/?page=rss&q="
+cache_dir="$HOME/.cache/nyaa-stream"
+
+if [ -z $1 ]; then
+  query=$(rofi -dmenu -p "Rechercher un torrent: ")
+else
+  query=$1
+fi
+
+query="$(echo $query | sed 's/ /+/g')"
+
+curl -s $base_url$query/ > $cache_dir/tmp.xml
+
+grep -o '<title>.*</title>' $cache_dir/tmp.xml |
+  sed 's/<[^>]*>//g' > $cache_dir/titles.bw
+
+sed -i '1d' $cache_dir/titles.bw
+
+result_count=$(wc -l $cache_dir/titles.bw | awk '{print $1}')
+if [ "$result_count" -lt 1 ]; then
+  notify-send "Aucun résultat :(" -i "NONE"
+  exit 0
+fi
+
+# Seeders Leechers
+grep -o '<nyaa:seeders>.*<\/nyaa:seeders>\|<nyaa:leechers>.*<\/nyaa:leechers>' $cache_dir/tmp.xml |
+  sed ':a;N;$!ba;s/<\/nyaa:seeders>\n<nyaa:leechers>/ /g' |
+  sed ':a;N;$!ba;s/<\/nyaa:leechers>\n<nyaa:seeders>/\n/g' |
+  tr -d "<nyaa:seeders>" |
+  tr -d "</nyaa:leechers>" |
+  tr -d "</nyaa:seeders>" |
+  tr -d "<nyaa:leechers>" > $cache_dir/seedleech.bw
+
+# Size
+grep -o '<nyaa:size>.*<\/nyaa:size>' $cache_dir/tmp.xml |
+  sed 's/<[^>]*>//g' > $cache_dir/size.bw
+
+# Links
+grep -o '<link>.*<\/link>' $cache_dir/tmp.xml |
+  sed 's/<[^>]*>//g' > $cache_dir/links.bw
+sed -i '1d' $cache_dir/links.bw
+
+
+# Clear up data
+sed 's/\./ /g; s/\-/ /g' $cache_dir/titles.bw |
+  sed 's/[^A-Za-z0-9 ]//g' | tr -s " " > $cache_dir/tmp && mv $cache_dir/tmp $cache_dir/titles.bw
+
+awk '{print NR " - ["$0"]"}' $cache_dir/size.bw > $cache_dir/tmp && mv $cache_dir/tmp $cache_dir/size.bw
+awk '{print "[s:"$1"]" }' $cache_dir/seedleech.bw > $cache_dir/tmp && mv $cache_dir/tmp $cache_dir/seedleech.bw
+
+# Getting the line number
+LINE=$(paste -d\   $cache_dir/size.bw $cache_dir/seedleech.bw $cache_dir/titles.bw |
+  $menu |
+  cut -d\- -f1 |
+  awk '{$1=$1; print}')
+
+if [ -z "$LINE" ]; then
+  notify-send "Aucun résultat séléctionné." -i "NONE"
+  exit 0
+fi
+notify-send "Récupération du torrent..." -i "NONE"
+url=$(head -n $LINE $cache_dir/links.bw | tail -n +$LINE)
+
+webtorrent "$url" --vlc

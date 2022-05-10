@@ -1,0 +1,181 @@
+; Variables
+
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ trunc(artist,10) }} - {{ trunc(title,15) }}' || true")
+
+(deflisten music_cover :initial ""
+  "playerctl --follow metadata --format '{{ mpris:artUrl }}'")
+
+(defpoll vol_icon :interval "1s"
+  "scripts/volume --icon")
+(defpoll vol_perc :interval "2s"
+"scripts/volume --perc")
+
+(defpoll bat_icon :interval "30s"
+  "scripts/battery --icon")
+(defpoll bat_perc :interval "30s"
+  "scripts/battery --perc")
+
+(defpoll playpause_icon :interval "5s"
+  "scripts/music --icon")
+
+(defpoll network :interval "1s"
+  "scripts/nm")
+
+(defpoll time :interval "10s"
+  "date '+%H:%M'")
+
+(deflisten wm-tags
+  "leftwm-state -w 0 -t ~/.config/leftwm/themes/current/template.liquid")
+
+
+(defwidget bar []
+    (centerbox :orientation "h"
+        (workspaces)
+        (music)
+        (sidestuff)))
+
+(defwidget sidestuff []
+    (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+        (volume)
+        (bat)
+        (wifi)   
+        (bluetooth)     
+        (time)))
+
+; Preview on how the workspaces widget will render:
+; (defwidget workspaces []
+    ; (box :class "workspaces"
+         ; :orientation "h"
+         ; :space-evenly true
+         ; :halign "start"
+         ; :spacing 10
+            ; (button :class "ws-button-mine" :onclick "leftwm-command \"SendWorkspaceToTag 0 0\"" `1`)
+            ; (button :class "ws-button-busy" :onclick "leftwm-command \"SendWorkspaceToTag 0 1\"" `2`)
+            ; (button :class "ws-button-busy" :onclick "leftwm-command \"SendWorkspaceToTag 0 2\"" `3`)
+            ; (button :class "ws-button" :onclick "leftwm-command \"SendWorkspaceToTag 0 3\"" `·`)
+            ; (button :class "ws-button" :onclick "leftwm-command \"SendWorkspaceToTag 0 4\"" `·`)
+            ; (button :class "ws-button" :onclick "leftwm-command \"SendWorkspaceToTag 0 5\"" `·`)
+            ; (button :class "ws-button" :onclick "leftwm-command \"SendWorkspaceToTag 0 6\"" `·`)
+            ; (button :class "ws-button" :onclick "leftwm-command \"SendWorkspaceToTag 0 7\"" `·`)
+            ; (button :class "ws-button" :onclick "leftwm-command \"SendWorkspaceToTag 0 8\"" `·`)))
+
+(defwidget workspaces []
+    (box :class "workspaces"
+        :orientation "h"
+        :space-evenly true
+        :halign "start"
+        :spacing 10
+        (literal :content {wm-tags})))
+
+(defwidget music []
+    (box :class "music"
+        :orientation "h"
+        :space-evenly false
+        :halign "center"
+        (label :class "music-icon"
+                :orientation "h"
+                :text " -")
+        (button :class "info"
+              :orientation "h"
+              :onclick "eww -c ~/.config/leftwm/themes/current/eww-bar/ open --toggle music_control"
+              {music != "" ? "${music}" : "no music playing"})))
+
+(defwidget bluetooth []
+    (box :orientation "h"
+            :class "info"
+            :space-evenly false
+        (button :class "bluetooth-icon"
+                :orientation "h"
+                :onclick "blueberry"
+                "")))
+
+(defwidget volume []
+    (box :orientation "h"
+            :class "info"
+            :space-evenly false
+        (button :class "vol-icon"
+            :onclick "eww -c ~/.config/leftwm/themes/current/eww-bar/ open --toggle volume_control"
+            "${vol_icon}")))
+
+(defwidget bat []
+    (box :orientation "h"
+        :class "info"
+        :space-evenly false
+        (box :class "label" "${bat_icon}  ${bat_perc}")))
+
+(defwidget wifi []
+    (box :orientation "h"
+        :class "info"
+        :space-evenly false
+        
+        (button :class "wifi-icon"
+                :onclick "nm-connection-editor &"
+                network)))
+
+(defwidget time []
+    (box :orientation "h"
+        :class "info"
+        :space-evenly false
+        time))
+
+(defwidget volume_control []
+    (box :orientation "v"
+            :class "volume-control"
+            :space-evenly false
+      (button :class "vol-icon" 
+              :onclick "./scripts/volume --toggle"
+        vol_icon)
+      (scale :min 0
+              :max 101
+              :orientation "v"
+              :flipped true
+              :onchange "./scripts/volume --set {}"
+              :value vol_perc)))
+
+(defwidget music_control []
+    (box :orientation "h"
+        :class "music-control"
+        :space-evenly false
+        (image :path "./images/cover.png"
+              :image-width 180
+              :image-height 180)
+        (box :orientation "v"
+            :class "music-info"
+          (label :class "info"
+              :text {music != "" ? "${music}" : "no music playing"})
+          (box :orientation "h"
+            (button :class "prev" :onclick "playerctl -i mpd previous" "玲")
+            (button :class "play-pause" :onclick "scripts/music --play-pause" playpause_icon)
+            (button :class "next" :onclick "playerctl -i mpd next" "怜")))))
+
+(defwindow bar0
+    :monitor 0
+    :windowtype "dock"
+    :geometry (geometry :x "0%"
+                        :y "0%"
+                        :width "100%"
+                        :height "10px"
+                        :anchor "top center")
+    :reserve (struts :side "top" :distance "30px")
+    (bar))
+
+(defwindow volume_control
+    :monitor 0
+    :geometry (geometry :x "-148px"
+                        :y "40px"
+                        :width "25px"
+                        :height "100px"
+                        :anchor "top right")
+    :stacking "fg"
+    (volume_control))
+
+(defwindow music_control
+    :monitor 0
+    :geometry (geometry :x "0%"
+                        :y "40px"
+                        :width "400px"
+                        :height "200px"
+                        :anchor "top center")
+    :stacking "fg"
+    (music_control))
