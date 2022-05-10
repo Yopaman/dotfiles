@@ -6,6 +6,7 @@ My personnal linux desktop configuration.
 - WM: LeftWM
 - Bar: eww
 - Terminal: kitty
+- Color Scheme: Cattpuccin
 
 (I haven't tested it on other computer than mine, and some elements might need to be adapted to work on any setup)
 
