@@ -22,7 +22,7 @@ echo "LoadTheme $SCRIPTPATH/theme.toml" > $XDG_RUNTIME_DIR/leftwm/command-0.pipe
 
 # xss-lock with i3lock for inactivity
 if [ -x "$(command -v xss-lock)" ]; then
-  xss-lock --transfer-sleep-lock -- i3lock -c 000000 --nofork &
+  xss-lock --transfer-sleep-lock -- betterlockscreen -l blur &
 fi
 
 # gnome keyring
