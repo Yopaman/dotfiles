@@ -3,8 +3,8 @@
 My personnal linux desktop configuration. 
 
 - OS: Arch
-- WM: LeftWM
-- Bar: eww
+- WM: awesomeWM
+- Bar: awesomeWM
 - Terminal: kitty
 - Color Scheme: Cattpuccin
 

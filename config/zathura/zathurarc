@@ -55,19 +55,41 @@ map [fullscreen] <C-i> jumplist forward
 
 map [index] q quit
 
-# colors
-set recolor
-set recolor-darkcolor "#c5c8c6"
-set recolor-lightcolor "#1d1f21"
-set inputbar-fg "#FFFFFF"
-set inputbar-bg "#000000"
-set completion-highlight-fg "#F0E68C"
-set completion-highlight-bg "#6B8E23"
-# set highlight-color "#CD853F"
-# set highlight-active-color "#F0E68C"
-set notification-fg "#FFFFFF"
-set notification-bg "#333333"
-set default-bg "#1d1f21"
-set statusbar-bg "#1d1f21"
-set statusbar-fg "#ffffff"
+# Colors
+set default-fg                 "#d9e0ee"
+set default-bg                 "#1e1d2f"
 
+set completion-bg            "#302d41"
+set completion-fg            "#d9e0ee"
+set completion-highlight-bg    "#575268"
+set completion-highlight-fg    "#d9e0ee"
+set completion-group-bg        "#302d41"
+set completion-group-fg        "#96cdfb"
+
+set statusbar-fg            "#d9e0ee"
+set statusbar-bg            "#302d41"
+
+set notification-bg            "#302d41"
+set notification-fg            "#d9e0ee"
+set notification-error-bg    "#302d41"
+set notification-error-fg    "#f28fad"
+set notification-warning-bg    "#302d41"
+set notification-warning-fg    "#fae3b0"
+
+set inputbar-fg                "#d9e0ee"
+set inputbar-bg             "#302d41"
+
+set recolor-lightcolor        "#1e1d2f"
+set recolor-darkcolor        "#d9e0ee"
+
+set index-fg                "#d9e0ee"
+set index-bg                "#1e1d2f"
+set index-active-fg            "#d9e0ee"
+set index-active-bg            "#302d41"
+
+set render-loading-bg        "#1e1d2f"
+set render-loading-fg        "#d9e0ee"
+
+set highlight-color            "#575268"
+set highlight-fg            "#f5c2e7"
+set highlight-active-color    "#f5c2e7"
