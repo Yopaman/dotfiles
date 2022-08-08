@@ -1,0 +1,139 @@
+/* ----- Catppuccin Colors ----- */
+
+$rosewater: #f5e0dc;
+$flamingo: #f2cdcd;
+$mauve: #ddb6f2;
+$pink: #f5c2e7;
+$maroon: #e8a2af;
+$red: #f28fad;
+$peach: #f8bd96;
+$yellow: #fae3b0;
+$green: #abe9b3;
+$teal: #b5e8e0;
+$blue: #96cdfb;
+$sky: #89dceb;
+$lavender: #c9cbff;
+
+$black0: #161320;
+$black1: #1a1826;
+$black2: #1e1e2e;
+$black3: #302d41;
+$black4: #575268;
+$gray0: #6e6c7e;
+$gray1: #988ba2;
+$gray2: #c3bac6;
+$white: #d9e0ee;
+
+* {
+  all: unset; //Unsets everything so you can style everything from scratch
+  font-family: "hack nerd font";
+}
+
+//Global Styles
+.bar {
+  background-color: rgba($black2, 0.5);
+  color: $white;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+// Infos (ex: wifi, battery, etc...)
+.info {
+  margin-right: 5px;
+  margin-left: 5px;
+  font-size: 16px;
+}
+
+.vol-icon,
+.wifi-icon,
+.music-icon {
+  font-size: 22px;
+}
+
+.music-icon {
+  margin-left: 5px;
+}
+
+.workspaces {
+  background-color: rgba($black1, 0.5);
+  border-radius: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.workspaces button {
+  font-size: 22px;
+}
+
+.workspaces button:hover {
+  color: $peach;
+}
+
+.sidestuff,
+.music {
+  background-color: rgba($black1, 0.5);
+  border-radius: 10px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+.volume-control,
+.music-control {
+  background-color: $black4;
+}
+
+.volume-control scale trough highlight {
+  all: unset;
+  background-color: $peach;
+  color: #000000;
+  border-radius: 10px;
+}
+.volume-control scale trough {
+  all: unset;
+  background-color: $black2;
+  border-radius: 50px;
+  min-height: 60px;
+  min-width: 5px;
+  margin: 0;
+}
+
+.music-control {
+  all: unset;
+  padding: 10px;
+  background-color: rgba($black2, 0.5);
+}
+
+.music-control image {
+  all: unset;
+  margin-left: 0px;
+}
+
+.music-control .music-info {
+  all: unset;
+  margin-left: 10px;
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
+.music-control .prev,
+.play-pause,
+.next {
+  background-color: $black4;
+  border-radius: 40px;
+  margin-left: 10px;
+  margin-right: 10px;
+  min-width: 50px;
+  min-height: 50px;
+}
+
+.music-control .prev:hover,
+.play-pause:hover,
+.next:hover {
+  background-color: $black3;
+}
+
+.music-control .prev:active,
+.play-pause:active,
+.next:active {
+  background-color: $rosewater;
+}

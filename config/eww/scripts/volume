@@ -1,0 +1,33 @@
+#!/bin/bash
+
+volume=$(pamixer --get-volume-human | sed 's/%//')
+
+update_icon () {
+  volume=$(pamixer --get-volume-human | sed 's/%//')
+  if [[ $volume == "muted" ]]; then
+    echo "婢"
+    else
+      if [[ ($volume  -gt 66 ) ]]; then
+        echo "墳"
+      elif [[ ($volume -lt 66) && ($volume -gt 33)]]; then
+        echo "奔"
+      elif [[ ($volume -lt 33) ]]; then
+        echo ""
+      fi
+  fi
+}
+
+if [[ $1 == '--icon' ]]; then
+  echo $(update_icon)
+elif [[ $1 == '--perc' ]]; then 
+  echo $volume
+elif [[ $1 == '--toggle' ]]; then
+  pamixer -t &&
+  eww -c $HOME/.config/leftwm/themes/current/eww-bar update vol_icon=$(update_icon)
+elif [[ $1 == '--set' ]]; then
+  pamixer --set-volume $2 &&
+  eww -c $HOME/.config/leftwm/themes/current/eww-bar update vol_perc=$2 &&
+  eww -c $HOME/.config/leftwm/themes/current/eww-bar update vol_icon=$(update_icon)
+fi
+    
+

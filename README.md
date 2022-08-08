@@ -1,16 +1,17 @@
 # Dotfiles
 
-My personnal linux desktop configuration. 
+My personnal linux desktop configuration.
 
 - OS: Arch
-- WM: awesomeWM
-- Bar: awesomeWM
+- WM: BSPWM
+- Bar: eww
 - Terminal: kitty
 - Color Scheme: Cattpuccin
 
-(I haven't tested it on other computer than mine, and some elements might need to be adapted to work on any setup)
+This rice is a complete mess and should not be blindly copied on any other setup than mine
+but you can look into the config files to get somes part of it.
 
----------
+---
 
 ## Screenshot
 

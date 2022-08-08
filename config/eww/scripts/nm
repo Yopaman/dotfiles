@@ -1,0 +1,12 @@
+#!/bin/bash
+
+status=$(nmcli con show --active)
+
+if [[ $status ]]; then
+    icon="直"
+else
+    icon="睊"
+fi
+
+
+echo "${icon}"
