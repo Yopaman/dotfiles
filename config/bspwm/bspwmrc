@@ -4,12 +4,6 @@ pgrep -x sxhkd > /dev/null || sxhkd &
 
 # Autostart
 
-# Eww
-if [ -x "$(command -v eww)" ]; then
-  eww daemon &
-  eww open bar_window
-fi
-
 # xss-lock with betterlockscreen for inactivity
 if [ -x "$(command -v xss-lock)" ]; then
   xss-lock --transfer-sleep-lock -- betterlockscreen -l blur &
@@ -17,6 +11,13 @@ fi
 
 if [ -x "$(command -v picom)" ]; then
   picom --experimental-backend &
+fi
+
+# Eww
+if [ -x "$(command -v eww)" ]; then
+  eww daemon &
+  eww close bar_window
+  eww open bar_window
 fi
 
 # Wallpaper
