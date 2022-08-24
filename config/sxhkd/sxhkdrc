@@ -6,6 +6,10 @@
 super + Return
 	kitty
 
+# floating terminal
+super + shift + Return
+	kitty --class scratchterm
+
 # program launcher
 super + d
 	$HOME/.config/rofi/launcher.sh 
