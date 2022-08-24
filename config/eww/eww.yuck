@@ -1,53 +1,84 @@
-; Variables
+; Yopaman's eww config, based on the default "eww-bar" example
 
-(deflisten music :initial ""
-  "playerctl --follow metadata --format '{{ trunc(artist,10) }} - {{ trunc(title,15) }}' || true")
-
-(deflisten music_cover :initial ""
-  "playerctl --follow metadata --format '{{ mpris:artUrl }}'")
-
-(defpoll vol_icon :interval "1s"
-  "scripts/volume --icon")
-(defpoll vol_perc :interval "2s"
-"scripts/volume --perc")
-
-(defpoll bat_icon :interval "30s"
-  "scripts/battery --icon")
-(defpoll bat_perc :interval "30s"
-  "scripts/battery --perc")
-
-(defpoll playpause_icon :interval "5s"
-  "scripts/music --icon")
-
-(defpoll network :interval "1s"
-  "scripts/nm")
-
-(defpoll time :interval "10s"
-  "date '+%H:%M'")
-
-(deflisten wm-tags
-  "leftwm-state -w 0 -t ~/.config/leftwm/themes/current/template.liquid")
+;;;;;;;;;;;;;;;
+;  Variables  ;
+;;;;;;;;;;;;;;;
 
 
+(deflisten music :initial "" "playerctl --follow metadata --format '{{ trunc(artist,10) }} - {{ trunc(title,15) }}' || true")
+(deflisten music_cover :initial "" "playerctl --follow metadata --format '{{ mpris:artUrl }}'")
+
+(defpoll vol_icon :interval "1s" "scripts/volume --icon")
+(defpoll vol_perc :interval "2s" "scripts/volume --perc")
+
+(defpoll bat_icon :interval "30s" "scripts/battery --icon")
+(defpoll bat_perc :interval "30s" "scripts/battery --perc")
+
+(defpoll playpause_icon :interval "5s" "scripts/music --icon")
+
+(defpoll network :interval "1s" "scripts/nm")
+
+(defpoll time :interval "10s" "date '+%H:%M'")
+
+(deflisten wm-tags "leftwm-state -w 0 -t ~/.config/leftwm/themes/current/template.liquid")
+
+
+;;;;;;;;;;;;;
+;  Widgets  ;
+;;;;;;;;;;;;;
+
+
+; Base bar
 (defwidget bar []
-    (centerbox :orientation "h"
-        :class "bar"
-        (workspaces)
-        (music)
-        (sidestuff)))
+  (centerbox 
+    :orientation "h"
+    :class "bar"
+    (box :halign "start" (menu))
+    (box :halign "center" (workspaces))
+    (box :halign "end" (sidestuff))
+  )
+)
 
-(defwidget sidestuff []
-    (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
-        (volume)
-        (bat)
-        (wifi)   
-        (bluetooth)     
-        (time)))
+; Utils
+(defwidget icons_background []
+  (box 
+    :class "icons-background"
+    :orientation "h"
+    :space-evenly false
+    (children)
+  )
+)
 
+; Menu (left)
+(defwidget menu []
+  (icons_background   
+    (button 
+      :class "arch-icon" 
+      :onclick "~/.config/rofi/launcher.sh"
+      "")
+  )
+)
+
+; Workspaces (center)
 (defwidget workspaces []
-    (literal :content workspace))
+  (icons_background
+    (literal :content workspace)
+  )
+)
 (deflisten workspace "./scripts/getWorkspaces")
 
+; Sidestuff (wifi, battery, etc...)
+(defwidget sidestuff []
+  (icons_background 
+    (volume)
+    (bat)
+    (wifi)   
+    (bluetooth) 
+    (time)
+  )
+)
+
+; Music widget (TODO: implement it into a control pannel)
 (defwidget music []
     (box :class "music"
         :orientation "h"
@@ -60,6 +91,8 @@
               :orientation "h"
               :onclick "eww open --toggle music_control"
               {music != "" ? "${music}" : "no music playing"})))
+
+; Icons (TODO: add classes to style icons properly)
 
 (defwidget bluetooth []
     (box :orientation "h"
@@ -97,8 +130,10 @@
     (box :orientation "h"
         :class "info"
         :space-evenly false
+        :halign "end"
         time))
 
+; Volume control (TODO: make it a revealer widget)
 (defwidget volume_control []
     (box :orientation "v"
             :class "volume-control"
@@ -113,6 +148,7 @@
               :onchange "./scripts/volume --set {}"
               :value vol_perc)))
 
+; Music control widget
 (defwidget music_control []
     (box :orientation "h"
         :class "music-control"
@@ -129,17 +165,23 @@
             (button :class "play-pause" :onclick "scripts/music --play-pause" playpause_icon)
             (button :class "next" :onclick "playerctl -i mpd next" "怜")))))
 
+;;;;;;;;;;;;;
+;  Windows  ;
+;;;;;;;;;;;;;
+
+; Main bar window
 (defwindow bar_window
     :monitor 0
     :windowtype "dock"
     :geometry (geometry :x "0%"
                         :y "0%"
                         :width "100%"
-                        :height "10px"
+                        :height "30px"
                         :anchor "top center")
     :reserve (struts :side "top" :distance "30px")
     (bar))
 
+; Volume control window
 (defwindow volume_control
     :monitor 0
     :geometry (geometry :x "-148px"
@@ -150,6 +192,7 @@
     :stacking "fg"
     (volume_control))
 
+; Music control window
 (defwindow music_control
     :monitor 0
     :geometry (geometry :x "0%"

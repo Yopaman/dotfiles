@@ -40,7 +40,7 @@ workspaces() {
 	[ "$o5" ] && content5=""
 	[ "$o6" ] && content6=""
 	[ "$f1" ] && content1=""
-        [ "$f2" ] && content2=""
+  [ "$f2" ] && content2=""
 	[ "$f3" ] && content3=""
 	[ "$f4" ] && content4=""
 	[ "$f5" ] && content5=""
