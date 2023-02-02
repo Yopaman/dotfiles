@@ -6,18 +6,22 @@ CHARGE="$(acpi | awk -F ' ' 'END {print $3}' | tr -d \,)"
 
 main() {
 	if [[ ($CHARGE = *"Charging"*) && ($BATTERY -lt "100") ]]; then
-		echo ""
+		echo "battery_charging_full.svg"
 	elif [[ $CHARGE = *"Full"* ]]; then
-		echo ""
+		echo "battery_full.svg"
 	else
-		if [[ ($BATTERY -lt 100) && (($BATTERY -gt 65) || ($BATTERY -eq 65)) ]]; then
-			echo ""
-		elif [[ ($BATTERY -lt 65) && (($BATTERY -gt 35) || ($BATTERY -eq 35)) ]]; then
-			echo ""
-		elif [[ ($BATTERY -lt 35) && (($BATTERY -gt 10) || ($BATTERY -eq 10)) ]]; then
-			echo ""
-		elif [[ ($BATTERY -lt 10) && (($BATTERY -gt 0) || ($BATTERY -eq 0)) ]]; then
-			echo ""
+		if [[ ($BATTERY -lt 100) && (($BATTERY -gt 88) || ($BATTERY -eq 88)) ]]; then
+			echo "battery_6_bar.svg"
+		elif [[ ($BATTERY -lt 88) && (($BATTERY -gt 66) || ($BATTERY -eq 66)) ]]; then
+			echo "battery_5_bar.svg"
+		elif [[ ($BATTERY -lt 66) && (($BATTERY -gt 45) || ($BATTERY -eq 45)) ]]; then
+			echo "battery_4_bar.svg"
+		elif [[ ($BATTERY -lt 45) && (($BATTERY -gt 33) || ($BATTERY -eq 33)) ]]; then
+			echo "battery_3_bar.svg"
+		elif [[ ($BATTERY -lt 33) && (($BATTERY -gt 12) || ($BATTERY -eq 12)) ]]; then
+			echo "battery_2_bar.svg"
+		elif [[ ($BATTERY -lt 12) && (($BATTERY -gt 0) || ($BATTERY -eq 0)) ]]; then
+			echo "battery_1_bar.svg"
 		fi
 	fi
 }

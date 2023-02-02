@@ -4,15 +4,15 @@
 
 # terminal emulator
 super + Return
-	kitty
+	wezterm	
 
 # floating terminal
 super + shift + Return
-	kitty --class scratchterm
+	wezterm start --class scratchterm
 
 # program launcher
 super + d
-	$HOME/.config/rofi/launcher.sh 
+	$HOME/.config/rofi/launchers/type-3/launcher.sh
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -23,8 +23,11 @@ super + Escape
 #
 
 # quit/restart bspwm
-super + shift + {x,r}
-	bspc {quit,wm -r}
+super + shift + r
+	bspc wm -r
+
+super + shift + x
+	~/.config/rofi/powermenu/type-4/powermenu.sh
 
 # close and kill
 super + {_,shift + }q
@@ -127,3 +130,9 @@ super + {Left,Down,Up,Right}
 # Take screenshot
 super + shift + s
 	flameshot gui
+
+XF86Audio{Raise,Lower}Volume
+	pamixer -{i,d} 5
+
+XF86AudioMute
+	pamixer -t

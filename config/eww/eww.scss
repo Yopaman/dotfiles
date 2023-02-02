@@ -2,27 +2,30 @@
 
 $rosewater: #f5e0dc;
 $flamingo: #f2cdcd;
-$mauve: #ddb6f2;
 $pink: #f5c2e7;
-$maroon: #e8a2af;
-$red: #f28fad;
-$peach: #f8bd96;
-$yellow: #fae3b0;
-$green: #abe9b3;
-$teal: #b5e8e0;
-$blue: #96cdfb;
+$mauve: #cba6f7;
+$red: #f38ba8;
+$maroon: #eba0ac;
+$peach: #fab387;
+$yellow: #f9e2af;
+$green: #a6e3a1;
+$teal: #94e2d5;
 $sky: #89dceb;
-$lavender: #c9cbff;
-
-$black0: #161320;
-$black1: #1a1826;
-$black2: #1e1e2e;
-$black3: #302d41;
-$black4: #575268;
-$gray0: #6e6c7e;
-$gray1: #988ba2;
-$gray2: #c3bac6;
-$white: #d9e0ee;
+$sapphire: #74c7ec;
+$blue: #89b4fa;
+$lavender: #b4befe;
+$text: #cdd6f4;
+$subtext1: #bac2de;
+$subtext0: #a6adc8;
+$overlay2: #9399b2;
+$overlay1: #7f849c;
+$overlay0: #6c7086;
+$surface2: #585b70;
+$surface1: #45475a;
+$surface0: #313244;
+$base: #1e1e2e;
+$mantle: #181825;
+$crust: #11111b;
 
 * {
   all: unset; //Unsets everything so you can style everything from scratch
@@ -31,32 +34,27 @@ $white: #d9e0ee;
 
 // Global Styles
 .bar {
-  background-color: rgba($black2, 0.5);
-  color: $white;
+  background-color: rgba($base, 1);
+  color: $text;
   padding-left: 10px;
   padding-right: 10px;
 }
 
 // Background on bar
 .icons-background {
-  background-color: rgba($black1, 0.5);
+  border-radius: 10px;
+  transition: background-color 100ms;
+}
+
+.icons-background > box {
+  background-color: rgba($crust, 1);
   border-radius: 10px;
   padding-right: 10px;
   padding-left: 10px;
-  margin-right: 5px;
-  margin-left: 5px;
+}
 
-  & button {
-    transition: all 50ms;
-  }
-
-  & button:active {
-    color: $gray2;
-  }
-
-  & button:hover {
-    color: $peach;
-  }
+.icons-background:hover {
+  background-color: rgba($crust, 1);
 }
 
 // Infos (ex: wifi, battery, etc...)
@@ -70,7 +68,7 @@ $white: #d9e0ee;
 .wifi-icon,
 .music-icon,
 .arch-icon {
-  color: $white;
+  color: $text;
   font-size: 22px;
 }
 
@@ -78,63 +76,96 @@ $white: #d9e0ee;
   font-size: 22px;
 }
 
-.volume-control,
-.music-control {
-  background-color: $black4;
+.icon-label {
+  margin-right: 5px;
 }
 
-.volume-control scale trough highlight {
+.time {
+  font-size: 1.1em;
+}
+
+.control-center-background {
+  padding: 5px;
+  background-color: rgba($base, 1);
+  border-radius: 10px;
+  border: 3px solid $text;
+}
+
+.control-slider trough highlight {
   all: unset;
-  background-color: $peach;
+  margin: 0px;
+  background-color: $mauve;
   color: #000000;
   border-radius: 10px;
 }
-.volume-control scale trough {
+
+.volume-control trough highlight {
+  background-color: $teal;
+}
+
+.control-slider scale trough {
   all: unset;
-  background-color: $black2;
-  border-radius: 50px;
-  min-height: 60px;
-  min-width: 5px;
+  background-color: rgba($crust, 0.5);
+  border-radius: 10px;
+  min-width: 50px;
   margin: 0;
 }
 
-.music-control {
-  all: unset;
-  padding: 10px;
-  background-color: rgba($black2, 0.5);
+.control-slider scale {
+  min-height: 150px;
 }
 
-.music-control image {
-  all: unset;
-  margin-left: 0px;
+.control-slider {
+  margin-right: 5px;
 }
 
-.music-control .music-info {
-  all: unset;
-  margin-left: 10px;
-  padding-top: 65px;
-  padding-bottom: 65px;
-}
-
-.music-control .prev,
-.play-pause,
-.next {
-  background-color: $black4;
-  border-radius: 40px;
-  margin-left: 10px;
-  margin-right: 10px;
-  min-width: 50px;
+.control-slider button,
+.control-slider .active-button {
+  background-color: rgba($crust, 0.5);
+  border-radius: 10px;
   min-height: 50px;
+  min-width: 50px;
+  margin-top: 5px;
+  transition: background-color 0.2s;
 }
 
-.music-control .prev:hover,
-.play-pause:hover,
-.next:hover {
-  background-color: $black3;
+.control-slider .active-button {
+  background-color: $mauve;
 }
 
-.music-control .prev:active,
-.play-pause:active,
-.next:active {
-  background-color: $rosewater;
+.volume-control button:active,
+.volume-control .clicked {
+  background-color: $teal;
 }
+
+
+.control-button, .action-button {
+  border-radius: 10px;
+  background-color: rgba($crust, 0.5);
+  transition: background-color 0.2s;
+}
+
+.bg-sapphire.clicked {
+  background-color: $sapphire;
+}
+
+.bg-sapphire:active {
+  background-color: $sapphire;
+}
+
+.bg-peach.clicked {
+  background-color: $peach;
+}
+
+.bg-peach:active {
+  background-color: $peach;
+}
+
+.bg-yellow.clicked {
+  background-color: $yellow;
+}
+
+.bg-yellow:active {
+  background-color: $yellow;
+}
+

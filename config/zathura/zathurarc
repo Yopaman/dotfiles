@@ -8,9 +8,9 @@ set adjust-open width
 set first-page-column 2
 set window-title-basename true
 # set database sqlite
-set recolor-keephue
 set selection-clipboard clipboard
 
+set sandbox none
 
 # key bindings
 # map <C-[> abort # Still doesn't work :(
@@ -54,6 +54,8 @@ map [fullscreen] <C-o> jumplist backward
 map [fullscreen] <C-i> jumplist forward
 
 map [index] q quit
+
+map [normal] <C-g> set recolor
 
 # Colors
 set default-fg                 "#d9e0ee"

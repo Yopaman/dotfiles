@@ -5,29 +5,33 @@ volume=$(pamixer --get-volume-human | sed 's/%//')
 update_icon () {
   volume=$(pamixer --get-volume-human | sed 's/%//')
   if [[ $volume == "muted" ]]; then
-    echo "婢"
-    else
-      if [[ ($volume  -gt 66 ) ]]; then
-        echo "墳"
-      elif [[ ($volume -lt 66) && ($volume -gt 33)]]; then
-        echo "奔"
-      elif [[ ($volume -lt 33) ]]; then
-        echo ""
-      fi
+    echo "volume_mute.svg"
+  else
+    echo "volume.svg" 
   fi
 }
 
-if [[ $1 == '--icon' ]]; then
+if [ $1 = '--icon' ]; then
   echo $(update_icon)
-elif [[ $1 == '--perc' ]]; then 
+elif [ $1 = '--perc' ]; then 
   echo $volume
-elif [[ $1 == '--toggle' ]]; then
-  pamixer -t &&
-  eww -c $HOME/.config/leftwm/themes/current/eww-bar update vol_icon=$(update_icon)
-elif [[ $1 == '--set' ]]; then
-  pamixer --set-volume $2 &&
-  eww -c $HOME/.config/leftwm/themes/current/eww-bar update vol_perc=$2 &&
-  eww -c $HOME/.config/leftwm/themes/current/eww-bar update vol_icon=$(update_icon)
+elif [ $1 = '--toggle' ]; then
+  pamixer -t
+  eww update vol_icon=$(update_icon)
+  eww update vol_perc=$(volume)
+  if [ $(eww get vol_class) = "clicked" ]; then
+    eww update vol_class=""
+  else
+    eww update vol_class="clicked"
+  fi
+elif [ $1 = '--class' ]; then
+  if [ $volume = "muted" ]; then
+    echo ""
+  else
+    echo "clicked"
+  fi
+elif [ $1 = '--set' ]; then
+  pamixer --set-volume $2
+  eww update vol_perc=$2
+  eww update vol_icon=$(update_icon) 
 fi
-    
-

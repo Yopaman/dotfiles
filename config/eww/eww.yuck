@@ -4,29 +4,17 @@
 ;  Variables  ;
 ;;;;;;;;;;;;;;;
 
-
-(deflisten music :initial "" "playerctl --follow metadata --format '{{ trunc(artist,10) }} - {{ trunc(title,15) }}' || true")
-(deflisten music_cover :initial "" "playerctl --follow metadata --format '{{ mpris:artUrl }}'")
-
-(defpoll vol_icon :interval "1s" "scripts/volume --icon")
-(defpoll vol_perc :interval "2s" "scripts/volume --perc")
-
-(defpoll bat_icon :interval "30s" "scripts/battery --icon")
-(defpoll bat_perc :interval "30s" "scripts/battery --perc")
-
-(defpoll playpause_icon :interval "5s" "scripts/music --icon")
-
-(defpoll network :interval "1s" "scripts/nm")
-
-(defpoll time :interval "10s" "date '+%H:%M'")
-
-(deflisten wm-tags "leftwm-state -w 0 -t ~/.config/leftwm/themes/current/template.liquid")
-
+(include "./variables.yuck")
 
 ;;;;;;;;;;;;;
 ;  Widgets  ;
 ;;;;;;;;;;;;;
 
+; Base widgets for building the UI
+(include "./abstract.yuck")
+
+; Control Center
+(include "./control_center.yuck")
 
 ; Base bar
 (defwidget bar []
@@ -35,135 +23,55 @@
     :class "bar"
     (box :halign "start" (menu))
     (box :halign "center" (workspaces))
-    (box :halign "end" (sidestuff))
-  )
-)
-
-; Utils
-(defwidget icons_background []
-  (box 
-    :class "icons-background"
-    :orientation "h"
-    :space-evenly false
-    (children)
-  )
-)
+    (box :halign "end" (sidestuff))))
 
 ; Menu (left)
 (defwidget menu []
-  (icons_background   
-    (button 
-      :class "arch-icon" 
-      :onclick "~/.config/rofi/launcher.sh"
-      "")
-  )
-)
+  (icons_background :action "~/.config/rofi/powermenu/type-4/powermenu.sh" 
+    (icon :svg "./images/arch_logo.svg")))
 
 ; Workspaces (center)
 (defwidget workspaces []
   (icons_background
-    (literal :content workspace)
-  )
-)
-(deflisten workspace "./scripts/getWorkspaces")
+    (literal :content workspace)))
 
-; Sidestuff (wifi, battery, etc...)
+(deflisten workspace "./scripts/workspaces_wayland")
+
+; Sidestuff (right)
 (defwidget sidestuff []
-  (icons_background 
-    (volume)
-    (bat)
-    (wifi)   
-    (bluetooth) 
-    (time)
-  )
-)
+  (icons_background :action "eww open --toggle control_center"
+    (icon :svg "./images/${vol_icon}")
+    (icon :svg "./images/${bat_icon}" :show_label true :label_text "${bat_perc}")
+    (icon :svg "./images/wifi.svg")
+    (icon :svg "./images/bluetooth.svg") 
+    (time)))
 
-; Music widget (TODO: implement it into a control pannel)
-(defwidget music []
-    (box :class "music"
-        :orientation "h"
-        :space-evenly false
-        :halign "center"
-        (label :class "music-icon"
-                :orientation "h"
-                :text " -")
-        (button :class "info"
-              :orientation "h"
-              :onclick "eww open --toggle music_control"
-              {music != "" ? "${music}" : "no music playing"})))
-
-; Icons (TODO: add classes to style icons properly)
-
-(defwidget bluetooth []
-    (box :orientation "h"
-            :class "info"
-            :space-evenly false
-        (button :class "bluetooth-icon"
-                :orientation "h"
-                :onclick "blueberry"
-                "")))
-
-(defwidget volume []
-    (box :orientation "h"
-            :class "info"
-            :space-evenly false
-        (button :class "vol-icon"
-            :onclick "eww open --toggle volume_control"
-            "${vol_icon}")))
-
-(defwidget bat []
-    (box :orientation "h"
-        :class "info"
-        :space-evenly false
-        (box :class "label" "${bat_icon}  ${bat_perc}")))
-
-(defwidget wifi []
-    (box :orientation "h"
-        :class "info"
-        :space-evenly false
-        
-        (button :class "wifi-icon"
-                :onclick "nm-connection-editor &"
-                network)))
-
+; Time
 (defwidget time []
     (box :orientation "h"
-        :class "info"
+        :class "time"
         :space-evenly false
         :halign "end"
         time))
 
-; Volume control (TODO: make it a revealer widget)
-(defwidget volume_control []
-    (box :orientation "v"
-            :class "volume-control"
-            :space-evenly false
-      (button :class "vol-icon" 
-              :onclick "./scripts/volume --toggle"
-        vol_icon)
-      (scale :min 0
-              :max 101
-              :orientation "v"
-              :flipped true
-              :onchange "./scripts/volume --set {}"
-              :value vol_perc)))
 
 ; Music control widget
-(defwidget music_control []
-    (box :orientation "h"
-        :class "music-control"
-        :space-evenly false
-        (image :path "./images/cover.png"
-              :image-width 180
-              :image-height 180)
-        (box :orientation "v"
-            :class "music-info"
-          (label :class "info"
-              :text {music != "" ? "${music}" : "no music playing"})
-          (box :orientation "h"
-            (button :class "prev" :onclick "playerctl -i mpd previous" "玲")
-            (button :class "play-pause" :onclick "scripts/music --play-pause" playpause_icon)
-            (button :class "next" :onclick "playerctl -i mpd next" "怜")))))
+; (defwidget music_control []
+;     (box :orientation "h"
+;         :class "music-control"
+;         :space-evenly false
+;         (image :path "./images/cover.png"
+;               :image-width 180
+;               :image-height 180)
+;         (box :orientation "v"
+;             :class "music-info"
+;           (label :class "info"
+;               :text {music != "" ? "${music}" : "no music playing"})
+;           (box :orientation "h"
+;             (button :class "prev" :onclick "playerctl -i mpd previous" "玲")
+;             (button :class "play-pause" :onclick "scripts/music --play-pause" playpause_icon)
+;             (button :class "next" :onclick "playerctl -i mpd next" "怜")))))
+
 
 ;;;;;;;;;;;;;
 ;  Windows  ;
@@ -173,6 +81,7 @@
 (defwindow bar_window
     :monitor 0
     :windowtype "dock"
+    :exclusive true
     :geometry (geometry :x "0%"
                         :y "0%"
                         :width "100%"
@@ -181,24 +90,4 @@
     :reserve (struts :side "top" :distance "30px")
     (bar))
 
-; Volume control window
-(defwindow volume_control
-    :monitor 0
-    :geometry (geometry :x "-148px"
-                        :y "40px"
-                        :width "25px"
-                        :height "100px"
-                        :anchor "top right")
-    :stacking "fg"
-    (volume_control))
 
-; Music control window
-(defwindow music_control
-    :monitor 0
-    :geometry (geometry :x "0%"
-                        :y "40px"
-                        :width "400px"
-                        :height "200px"
-                        :anchor "top center")
-    :stacking "fg"
-    (music_control))
