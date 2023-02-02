@@ -1,0 +1,36 @@
+; Bg
+(defwidget icons_background [?action]
+  (eventbox :onclick action
+    :class "icons-background"
+    (box :orientation "h"
+    :space-evenly false
+    (children))))
+
+; Icon
+(defwidget icon [svg ?show_label ?label_text]
+  (box :class "icon"
+        :orientation "h"
+        :space-evenly false
+    (image :path "${svg}"
+        :image-width 20
+        :image-height 20)
+    (label :text "${label_text}"
+        :class {show_label ? "icon-label" : ""})))
+
+; Control Button
+(defwidget control_button [svg color action clicked]
+(box :class "control-element" 
+     :spacing 5
+     :space-evenly false
+  (button :class "control-button bg-${color} ${clicked}"
+          :width 150
+          :onclick action
+  (image :path "${svg}"
+         :image-width 20
+         :image-height 20))
+  (button :class "action-button bg-${color}"
+          :width 50
+          :halign "start"
+    (image :path "./images/right_arrow.svg"
+           :image-width 20
+           :image-height 20))))

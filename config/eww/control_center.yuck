@@ -1,0 +1,72 @@
+; Control Center Background
+(defwidget control_center_background []
+     (box :class "control-center-background" 
+      :orientation "h"
+      :height 220
+    (children)))
+
+
+; Volume control 
+(defwidget volume_control [] 
+    (box :orientation "v"
+      :class "control-slider volume-control"
+      :space-evenly false
+      (scale :min 0
+              :max 101
+              :orientation "v"
+              :flipped true
+              :onchange "./scripts/volume --set {}"
+              :value vol_perc)
+      (button :class vol_class
+          :halign "center"
+        :onclick "./scripts/volume --toggle"
+        (image :path "./images/volume_dark.svg"
+                :image-width 20
+                :image-height 20))))
+
+; Brightness Control
+(defwidget brightness_control [] 
+    (box :orientation "v"
+      :class "control-slider brightness-control"
+      :space-evenly false
+      (scale :min 0
+              :max 101
+              :orientation "v"
+              :flipped true
+              :onchange "./scripts/brightness --set {}"
+              :value bn_perc)
+      (box :class "active-button"
+          :halign "center"
+        (image :path "./images/brightness_dark.svg"
+                :image-width 20
+                :image-height 20))))
+
+; Control Center
+(defwindow control_center
+    :monitor 0
+    :geometry (geometry :x "10px"
+                        :y "10px"
+                        :anchor "top right")
+    :stacking "fg"
+    (control_center_background
+      (centerbox
+        (volume_control)
+        (brightness_control)
+        (box :orientation "v"
+             :spacing 5
+          (control_button 
+            :svg {wifi_enabled == "enabled" ? "./images/wifi_dark.svg" : "./images/wifi.svg"}
+            :color "sapphire" 
+            :clicked {wifi_enabled == "enabled" ? "clicked" : ""} 
+            :action {wifi_enabled == "enabled" ? "./scripts/nm wifi_off" : "./scripts/nm wifi_on"})
+          (control_button 
+            :svg {bluetooth_enabled == "enabled" ? "./images/bluetooth_dark.svg" : "./images/bluetooth.svg"}
+            :color "peach" 
+            :clicked {bluetooth_enabled == "enabled" ? "clicked" : ""}
+            :action {bluetooth_enabled == "enabled" ? "./scripts/bluetooth bluetooth_off" : "./scripts/bluetooth bluetooth_on"})
+          (control_button 
+            :svg {vpn_enabled == "enabled" ? "./images/vpn_dark.svg" : "./images/vpn.svg"} 
+            :color "yellow" 
+            :clicked  {vpn_enabled == "enabled" ? "clicked" : ""}
+            :action {vpn_enabled == "enabled" ? "./scripts/vpn vpn_off" : "./scripts/vpn vpn_on"})))))
+

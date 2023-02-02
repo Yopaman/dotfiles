@@ -1,0 +1,10 @@
+#! /bin/bash
+
+brightness=$(light)
+
+if [[ $1 == '--perc' ]]; then 
+  echo $brightness
+elif [[ $1 == '--set' ]]; then
+  eww update bn_perc=$brightness
+  light -S $2
+fi
