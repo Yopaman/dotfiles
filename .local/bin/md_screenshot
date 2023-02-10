@@ -1,0 +1,7 @@
+#!/bin/sh
+
+SCREENSHOT_PATH="$HOME/cours/L2/S4/cours/images/$(date +'%Y-%m-%d_%H-%M-%s_grim.png')"
+
+grim -g "$(slurp)" $SCREENSHOT_PATH
+
+echo '![]('"${SCREENSHOT_PATH}"')' | wl-copy
