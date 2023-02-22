@@ -2,11 +2,11 @@
 
 *My personnal linux desktop configuration.*
 
-- **OS:** Arch
-- **WM:** Hyperland
-- **Bar + Control Panel:** eww
-- **Terminal:** kitty
-- **Color Scheme:** Catppuccin
+- **OS:** [Archlinux](https://archlinux.org) 
+- **WM:** [Hyperland](https://hyprland.org/)
+- **Bar + Control Panel:** [eww](https://github.com/elkowar/eww)
+- **Terminal:** [wezterm](https://github.com/wez/wezterm)
+- **Color Scheme:** [Catppuccin](https://github.com/catppuccin/catppuccin)
 
 Please dont use it blindly, there may be things that are only meant to be used on my setup.
 
