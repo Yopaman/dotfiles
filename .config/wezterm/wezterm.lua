@@ -8,11 +8,11 @@
 local wezterm = require("wezterm")
 
 local function font_with_fallback(name, params)
-	local names = { name, "Apple Color Emoji", "azuki_font" }
+	local names = { name, "Fira Code", "Apple Color Emoji", "azuki_font" }
 	return wezterm.font_with_fallback(names, params)
 end
 
-local font_name = "JetBrains Mono"
+local font_name = "Victor Mono Nerd Font"
 -- local font_name = "Fira Code"
 
 local colors = {
@@ -67,7 +67,7 @@ return {
 	window_background_opacity = 1,
 
 	-- Font config
-	font = font_with_fallback(font_name),
+	font = font_with_fallback(font_name, { weight = "Medium" }),
 	font_rules = {
 		{
 			italic = true,
@@ -87,7 +87,7 @@ return {
 			font = font_with_fallback(font_name, { weight = "Light" }),
 		},
 	},
-	font_size = 11,
+	font_size = 13,
 	line_height = 1.0,
 
 	-- Cursor style
@@ -100,14 +100,14 @@ return {
 	disable_default_key_bindings = true,
 	keys = {
 		{
-			key = [[\]],
-			mods = "CTRL|ALT",
+			key = [[|]],
+			mods = "CTRL",
 			action = wezterm.action({
 				SplitHorizontal = { domain = "CurrentPaneDomain" },
 			}),
 		},
 		{
-			key = [[\]],
+			key = [[-]],
 			mods = "CTRL",
 			action = wezterm.action({
 				SplitVertical = { domain = "CurrentPaneDomain" },

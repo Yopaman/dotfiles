@@ -32,12 +32,14 @@ $crust: #11111b;
   font-family: "hack nerd font";
 }
 
+// Custom Variables
+$bg: $base;
+$fg: $text;
+
 // Global Styles
 .bar {
-  background-color: rgba($base, 1);
+  background-color: rgba($fg, 0);
   color: $text;
-  padding-left: 10px;
-  padding-right: 10px;
 }
 
 // Background on bar
@@ -50,11 +52,11 @@ $crust: #11111b;
   background-color: rgba($crust, 1);
   border-radius: 10px;
   padding-right: 10px;
+  margin: 10px;
   padding-left: 10px;
-}
+  border: 3px solid $fg;
+  box-shadow: -2px 2px 3 rgba(0,0,0,0.7)
 
-.icons-background:hover {
-  background-color: rgba($crust, 1);
 }
 
 // Infos (ex: wifi, battery, etc...)
@@ -94,13 +96,13 @@ $crust: #11111b;
 .control-slider trough highlight {
   all: unset;
   margin: 0px;
-  background-color: $mauve;
+  background-color: $text;
   color: #000000;
   border-radius: 10px;
 }
 
 .volume-control trough highlight {
-  background-color: $teal;
+  background-color: $text;
 }
 
 .control-slider scale trough {
@@ -130,12 +132,12 @@ $crust: #11111b;
 }
 
 .control-slider .active-button {
-  background-color: $mauve;
+  background-color: $text;
 }
 
 .volume-control button:active,
 .volume-control .clicked {
-  background-color: $teal;
+  background-color: $text;
 }
 
 
@@ -169,3 +171,10 @@ $crust: #11111b;
   background-color: $yellow;
 }
 
+.bg-white:active {
+  background-color: $text;
+}
+
+.bg-white.clicked {
+  background-color: $text;
+}

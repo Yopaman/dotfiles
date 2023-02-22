@@ -56,17 +56,17 @@
              :spacing 5
           (control_button 
             :svg {wifi_enabled == "enabled" ? "./images/wifi_dark.svg" : "./images/wifi.svg"}
-            :color "sapphire" 
+            :color "white" 
             :clicked {wifi_enabled == "enabled" ? "clicked" : ""} 
             :action {wifi_enabled == "enabled" ? "./scripts/nm wifi_off" : "./scripts/nm wifi_on"})
           (control_button 
             :svg {bluetooth_enabled == "enabled" ? "./images/bluetooth_dark.svg" : "./images/bluetooth.svg"}
-            :color "peach" 
+            :color "white" 
             :clicked {bluetooth_enabled == "enabled" ? "clicked" : ""}
             :action {bluetooth_enabled == "enabled" ? "./scripts/bluetooth bluetooth_off" : "./scripts/bluetooth bluetooth_on"})
           (control_button 
             :svg {vpn_enabled == "enabled" ? "./images/vpn_dark.svg" : "./images/vpn.svg"} 
-            :color "yellow" 
+            :color "white" 
             :clicked  {vpn_enabled == "enabled" ? "clicked" : ""}
             :action {vpn_enabled == "enabled" ? "./scripts/vpn vpn_off" : "./scripts/vpn vpn_on"})))))
 

@@ -1,8 +1,8 @@
 window {
   margin: 0px;
   border: none;
-  background-color: #cba6f7;
-  border-radius: 8px;
+  background-color: #cdd6f4;
+  border-radius: 10px;
 }
 
 #input {
@@ -22,7 +22,7 @@ window {
 }
 
 #outer-box {
-  margin: 2px;
+  margin: 3px;
   border: none;
   border-radius: 8px;
   background-color: #1e1e2e;
@@ -58,6 +58,6 @@ window {
 #entry:selected {
   margin: 0px 0px;
   border: none;
-  border-radius: 8px;
-  background-color: #cba6f7;
+  border-radius: 10px;
+  background-color: #cdd6f4;
 }
