@@ -1,6 +1,6 @@
 # Eww
 
-Eww configuration is available in `.config/eww`. I splitted it in multiple files :
+Eww configuration is available in `.config/eww`. I split it in multiple files :
 
 - **`eww.yuck` :** main file, with the bar window and its widgets
 - **`eww.scss` :** styling of all widgets 
