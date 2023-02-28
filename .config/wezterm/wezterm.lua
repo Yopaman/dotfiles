@@ -8,7 +8,7 @@
 local wezterm = require("wezterm")
 
 local function font_with_fallback(name, params)
-	local names = { name, "Fira Code", "Apple Color Emoji", "azuki_font" }
+	local names = { name, "JetBrainsMono Nerd Font", "Apple Color Emoji", "azuki_font" }
 	return wezterm.font_with_fallback(names, params)
 end
 
@@ -67,7 +67,7 @@ return {
 	window_background_opacity = 1,
 
 	-- Font config
-	font = font_with_fallback(font_name, { weight = "Medium" }),
+	font = font_with_fallback(font_name),
 	font_rules = {
 		{
 			italic = true,
@@ -91,7 +91,7 @@ return {
 	line_height = 1.0,
 
 	-- Cursor style
-	default_cursor_style = "SteadyBlock",
+	cursor_thickness = 2,
 
 	-- X11
 	enable_wayland = true,
