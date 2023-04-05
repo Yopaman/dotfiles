@@ -5,6 +5,7 @@ alias hx helix
 set -x BROWSER brave
 set -x TERM "xterm-256color"
 set -x EDITOR "nvim"
+set -x SXHKD_SHELL "/bin/sh"
 
 alias nvide 'env -u WAYLAND_DISPLAY neovide --multigrid'
 alias aurpkgs 'pacman -Qm'
