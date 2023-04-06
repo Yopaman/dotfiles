@@ -35,7 +35,7 @@
   (icons_background
     (literal :content workspace)))
 
-(deflisten workspace "./scripts/workspaces_wayland")
+(deflisten workspace "./scripts/workspaces_xorg")
 
 ; Sidestuff (right)
 (defwidget sidestuff []

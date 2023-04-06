@@ -1,55 +1,80 @@
-#!/bin/sh
+#! /bin/bash
+
+#define icons for workspaces 1-9
+ic=(0 Term Browser Files Music Videos CS:GO Other)
+
+#initial check for occupied workspaces
+for num in $(bspc query -D -d .occupied --names); do 
+  export o"$num"="$num"
+done
+ 
+#initial check for focused workspace
+for num in $(bspc query -D -d focused --names); do 
+  export f"$num"="$num"
+  export fnum=f"$num"
+done
 
 workspaces() {
-	ws1=1
-	ws2=2
-	ws3=3
-	ws4=4
-	ws5=5
-	ws6=6
-	# Unoccupied
-	un="0"
+if [[ ${1:0:13} == "desktop_focus" ]]; then #set focused workspace
+  unset -v "$fnum"
+  num=$(bspc query -D -d --names)
+  export f"$num"="$num"
+  export fnum=f"$num"
 
-	# check if Occupied
-	o1=$(bspc query -D -d .occupied --names | grep "$ws1")
-	o2=$(bspc query -D -d .occupied --names | grep "$ws2")
-	o3=$(bspc query -D -d .occupied --names | grep "$ws3")
-	o4=$(bspc query -D -d .occupied --names | grep "$ws4")
-	o5=$(bspc query -D -d .occupied --names | grep "$ws5")
-	o6=$(bspc query -D -d .occupied --names | grep "$ws6")
+elif [[ ${1:0:8} == "node_add" ]]; then #set Occupied workspace
+  for num in $(bspc query -D -d .occupied --names); do 
+    export o"$num"="$num"
+  done
+  
 
-	# check if Focused
-	f1=$(bspc query -D -d focused --names | grep "$ws1")
-	f2=$(bspc query -D -d focused --names | grep "$ws2")
-	f3=$(bspc query -D -d focused --names | grep "$ws3")
-	f4=$(bspc query -D -d focused --names | grep "$ws4")
-	f5=$(bspc query -D -d focused --names | grep "$ws5")
-	f6=$(bspc query -D -d focused --names | grep "$ws6")
+elif [[ ${1:0:11} == "node_remove" ]]; then #unset unoccupied workspace
+  for num in $(bspc query -D --names); do 
+    unset -v o"$num" f"$num"
+    unset -v f"$num" f"$num"
+  done
 
-	# Kizu: le spagetti \\ Gwynsav: I kinda un-spagetti'ed it, and I did add the "o" stuff here, so it would actually just be 12 lines for the OG chunk which used to be like 30 lines lmao.
-	content1=""
-	content2=""
-	content3=""
-	content4=""
-	content5=""
-	content6=""
-	[ "$o1" ] && content1=""
-	[ "$o2" ] && content2=""
-	[ "$o3" ] && content3=""
-	[ "$o4" ] && content4=""
-	[ "$o5" ] && content5=""
-	[ "$o6" ] && content6=""
-	[ "$f1" ] && content1=""
-  [ "$f2" ] && content2=""
-	[ "$f3" ] && content3=""
-	[ "$f4" ] && content4=""
-	[ "$f5" ] && content5=""
-	[ "$f6" ] && content6=""
+  for num in $(bspc query -D -d .occupied --names); do 
+    export o"$num"="$num"
+  done
+   
+  for num in $(bspc query -D -d focused --names); do 
+    export f"$num"="$num"
+    export fnum=f"$num"
+  done
+  fi
 
-	echo "(box	:class \"workspaces\"    :orientation \"h\"      :vexpand \"true\"       :halign \"start\" :space-evenly \"false\" :spacing \"10\" (button :onclick \"bspc desktop -f $ws1\"	:class	\"$un$o1$f1\"	\"$content1\") (button :onclick \"bspc desktop -f $ws2\"	:class \"$un$o2$f2\"	 \"$content2\") (button :onclick \"bspc desktop -f $ws3\"	:class \"$un$o3$f3\" \"$content3\") (button :onclick \"bspc desktop -f $ws4\"	:class \"$un$o4$f4\"	\"$content4\") (button :onclick \"bspc desktop -f $ws5\"	:class \"$un$o5$f5\" \"$content5\" ) (button :onclick \"bspc desktop -f $ws6\"	:class \"$un$o6$f6\" \"$content6\" ))"
+content1=""
+content2=""
+content3=""
+content4=""
+content5=""
+content6=""
+[ "$o1" ] && content1=""
+[ "$o2" ] && content2=""
+[ "$o3" ] && content3=""
+[ "$o4" ] && content4=""
+[ "$o5" ] && content5=""
+[ "$o6" ] && content6=""
+[ "$f1" ] && content1=""
+ [ "$f2" ] && content2=""
+[ "$f3" ] && content3=""
+[ "$f4" ] && content4=""
+[ "$f5" ] && content5=""
+[ "$f6" ] && content6=""
+
+#output eww widget
+echo 	"(box	:class \"workspaces\"	:orientation \"h\" :spacing 5 :space-evenly \"true\" 	\
+              (button :onclick \"bspc desktop -f 1\" :onrightclick \"hyprctl dispatch workspace 1\" :class \"0$o1$f1\" \"$content1\") \
+              (button :onclick \"bspc desktop -f 2\" :onrightclick \"bspc desktop -f 2\"	:class \"0$o2$f2\" \"$content2\") \
+              (button :onclick \"bspc desktop -f 3\" :onrightclick \"bspc desktop -f 3\"	:class \"0$o3$f3\" \"$content3\") \
+              (button :onclick \"bspc desktop -f 4\" :onrightclick \"bspc desktop -f 4\"	:class \"0$o4$f4\" \"$content4\") \
+              (button :onclick \"bspc desktop -f 5\" :onrightclick \"bspc desktop -f 5\"	:class \"0$o5$f5\" \"$content5\") \
+              (button :onclick \"bspc desktop -f 6\" :onrightclick \"bspc desktop -f 6\"	:class \"0$o6$f6\" \"$content6\") \
+          )"
 }
 
 workspaces
-bspc subscribe desktop node_transfer | while read -r _ ; do
-workspaces
+
+bspc subscribe desktop_focus node_add node_remove 2> /dev/null | while read -r event; do 
+workspaces "$event"
 done

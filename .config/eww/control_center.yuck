@@ -44,8 +44,8 @@
 ; Control Center
 (defwindow control_center
     :monitor 0
-    :geometry (geometry :x "10px"
-                        :y "10px"
+    :geometry (geometry :x "-10px"
+                        :y "60px"
                         :anchor "top right")
     :stacking "fg"
     (control_center_background

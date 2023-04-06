@@ -3,7 +3,7 @@
 *My personnal linux desktop configuration.*
 
 - **OS:** [Archlinux](https://archlinux.org) 
-- **WM:** [Hyperland](https://hyprland.org/)
+- **WM:** [BSPWM](https://github.com/baskerville/bspwm)
 - **Bar + Control Panel:** [eww](https://github.com/elkowar/eww)
 - **Terminal:** [wezterm](https://github.com/wez/wezterm)
 - **Color Scheme:** [Catppuccin](https://github.com/catppuccin/catppuccin)
