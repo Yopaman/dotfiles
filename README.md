@@ -5,7 +5,7 @@
 - **OS:** [Archlinux](https://archlinux.org) 
 - **WM:** [BSPWM](https://github.com/baskerville/bspwm)
 - **Bar + Control Panel:** [eww](https://github.com/elkowar/eww)
-- **Terminal:** [wezterm](https://github.com/wez/wezterm)
+- **Terminal:** [Alacritty](https://github.com/alacritty/alacritty)
 - **Color Scheme:** [Catppuccin](https://github.com/catppuccin/catppuccin)
 
 Please dont use it blindly, there may be things that are only meant to be used on my setup.
