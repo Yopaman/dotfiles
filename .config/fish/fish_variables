@@ -49,4 +49,4 @@ SETUVAR fish_pager_color_selected_background:\x1d
 SETUVAR fish_pager_color_selected_completion:\x1d
 SETUVAR fish_pager_color_selected_description:\x1d
 SETUVAR fish_pager_color_selected_prefix:\x1d
-SETUVAR fish_user_paths:/home/pablo/\x2ecargo/bin\x1e/usr/games\x1e/home/pablo/\x2elocal/bin\x1e/home/pablo/\x2elocal/bin/mrpython\x2esh\x1e/home/pablo/\x2elocal/bin/MrPython/mrpython/\x1e/home/pablo/anaconda3/bin/
+SETUVAR fish_user_paths:/home/pablo/\x2enimble/bin\x1e/home/pablo/\x2ecargo/bin\x1e/usr/games\x1e/home/pablo/\x2elocal/bin\x1e/home/pablo/\x2elocal/bin/mrpython\x2esh\x1e/home/pablo/\x2elocal/bin/MrPython/mrpython/\x1e/home/pablo/anaconda3/bin/
