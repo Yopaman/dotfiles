@@ -180,15 +180,15 @@ return {
 			mods = "CTRL|SHIFT",
 			action = wezterm.action({ CopyTo = "ClipboardAndPrimarySelection" }),
 		},
-		{ key = "UpArrow",   mods = "SHIFT", action = wezterm.action.ScrollByLine(-1) },
+		{ key = "UpArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(-1) },
 		{ key = "DownArrow", mods = "SHIFT", action = wezterm.action.ScrollByLine(1) },
 	},
 	-- Padding
 	window_padding = {
-		left = 12,
-		right = 12,
-		top = 12,
-		bottom = 12,
+		left = 15,
+		right = 15,
+		top = 15,
+		bottom = 15,
 	},
 	-- Tab Bar
 	enable_tab_bar = true,

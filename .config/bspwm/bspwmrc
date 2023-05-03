@@ -13,10 +13,13 @@ if [ -x "$(command -v picom)" ]; then
   picom &
 fi
 
-# Eww
+# pkill polybar
+# polybar left &
+# polybar center &
+# polybar right &
+
 if [ -x "$(command -v eww)" ]; then
   eww daemon &
-  eww close bar_window
   eww open bar_window
 fi
 
@@ -27,14 +30,14 @@ fi
 # Wallpaper
 feh --bg-scale .config/wallpaper/rei-tux.png
 
-bspc monitor -d 1 2 3 4 5 6 7 
+bspc monitor -d 1 2 3 4 5 6 
 
 bspc config border_width         3
 bspc config window_gap           10
 bspc config normal_border_color \#313244
 bspc config focused_border_color \#cdd6f4
 
-bspc config split_ratio          0.52
+bspc config split_ratio          0.5
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
@@ -43,3 +46,5 @@ bspc rule -a scratchterm state=floating rectangle="750x450+630+300"
 
 # Tiling windows
 bspc rule -a Zathura state=tiled
+
+setxkbmap -layout fr,bqn -variant oss, -option grp:alt_shift_toggle

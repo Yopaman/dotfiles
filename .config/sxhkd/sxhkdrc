@@ -10,6 +10,10 @@ super + Return
 super + shift + Return
 	alacritty --class scratchterm
 
+# custom sized floating terminal
+super + ctrl + Return
+	bspc rule -a customsize state=floating rectangle="$(slop)" && alacritty --class customsize
+
 # program launcher
 super + d
 	$HOME/.config/rofi/scripts/launcher_t2
@@ -100,7 +104,7 @@ super + ctrl + {h,j,k,l}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
-super + ctrl + {1-9}
+super + ctrl + {ampersand, eacute, quotedbl, apostrophe, parenleft, minus}
 	bspc node -o 0.{1-9}
 
 # cancel the preselection for the focused node
@@ -126,6 +130,14 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
+# toggle vertival/horizontal split
+super + v
+	bspc node @parent -R 90
+
+#
+# Other
+#
 
 # Take screenshot
 super + shift + s

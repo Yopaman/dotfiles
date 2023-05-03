@@ -6,11 +6,14 @@ set -x BROWSER brave
 set -x TERM "xterm-256color"
 set -x EDITOR "nvim"
 set -x SXHKD_SHELL "/bin/sh"
+set -x DEBUGINFOD_URLS "https://debuginfod.archlinux.org"
 
 alias nvide 'env -u WAYLAND_DISPLAY neovide --multigrid'
 alias aurpkgs 'pacman -Qm'
 
 # opam configuration
 source /home/pablo/.opam/opam-init/init.fish > /dev/null 2> /dev/null; or true
+
+#set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/pablo/.ghcup/bin # ghcup-env
 
 set -q GHCUP_INSTALL_BASE_PREFIX[1]; or set GHCUP_INSTALL_BASE_PREFIX $HOME ; set -gx PATH $HOME/.cabal/bin $PATH /home/pablo/.ghcup/bin # ghcup-env

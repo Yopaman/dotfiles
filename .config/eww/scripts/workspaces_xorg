@@ -26,9 +26,7 @@ elif [[ ${1:0:8} == "node_add" ]]; then #set Occupied workspace
     export o"$num"="$num"
   done
   
-
 elif [[ ${1:0:13} == "node_transfer" ]]; then
-  echo "test"
   for num in $(bspc query -D --names); do 
     unset -v o"$num" f"$num"
     unset -v f"$num" f"$num"
