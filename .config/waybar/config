@@ -138,9 +138,9 @@
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
         "format-wifi": "{essid} ",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "format-linked": "{ifname} (No IP) ",
+        "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+        "tooltip-format": "{ifname} via {gwaddr} 󰈀",
+        "format-linked": "{ifname} (No IP) 󰈀",
         "format-disconnected": "Disconnected ⚠",
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
@@ -183,16 +183,9 @@
         // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
     },
     "custom/menu": {
-        "exec": "~/.config/waybar/scripts/menu.sh --icon",
-        "exec-on-event": true,
         "interval": "once",
-        "format": "{icon}",
+        "format": "▼",
         "return-type": "json",
-        "format-icons": {
-            "toggled": "▼",
-            "untoggled": "▲",
-            "default": "▲"
-        },
         "on-click": "~/.config/waybar/scripts/menu.sh --toggle",
         "tooltip": false
     }
