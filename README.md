@@ -12,8 +12,6 @@
 
 > Please dont use it blindly, there may be things that are only meant to be used on my setup.
 
----
-
 ## Screenshots
 
 ![screenshot1](screenshot1.png)
