@@ -7,24 +7,30 @@
 }
 
 window#waybar {
-    background-color: alpha(@base, 0.0);
+    background-color: alpha(@base, 1.0);
     color: @text;
     transition-property: background-color;
     transition-duration: .5s;
     color: @text;
+    box-shadow: -2px 2px 2px 0px rgba(0, 0, 0, 0.4);
+    margin-bottom: 5px;
 }
 
 .modules-center, .modules-left, .modules-right {
-    background-color: @base;
-    border-radius: 10px;
-    border: 3px solid @text;
-    margin: 5px 0 5px 5px;
-    box-shadow: -2px 2px 2px 0px rgba(0, 0, 0, 0.4);
+    background-color: @crust;
+    border-radius: 8px;
+    /* border: 3px solid @text; */
+    margin: 5px 10px 5px 10px;
+    /* box-shadow: -2px 2px 2px 0px rgba(0, 0, 0, 0.4); */
     padding: 0px 10px 0px 10px
 }
 
 .modules-right {
     padding-right: 0;
+}
+
+.modules-center {
+    padding-right: 5px;
 }
 
 button {
@@ -40,6 +46,10 @@ button:hover {
     background: inherit;
 }
 
+#workspaces {
+    padding-right: 5px;
+}
+
 #workspaces button {
     padding: 0 2px;
     background-color: transparent;
@@ -52,10 +62,35 @@ button:hover {
 
 #workspaces button.focused {
     background-color: #64727D;
-    box-shadow: inset 0 -3px #ffffff;
 }
 
 #workspaces button.urgent {
+    background-color: @red;
+}
+
+#tags button {
+    padding: 0px;
+    padding-right: 5px;
+    color: @surface0
+}
+
+#tags label {
+    font-size: 18px;
+}
+
+#tags button:hover {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+#tags button.occupied {
+    color: @surface2
+}
+
+#tags button.focused {
+    color: @text
+}
+
+#tags button.urgent {
     background-color: @red;
 }
 
