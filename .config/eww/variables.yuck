@@ -15,3 +15,4 @@
 (defpoll wifi_enabled :interval "1s" "scripts/nm wifi_enabled")
 (defpoll bluetooth_enabled :interval "1s" "scripts/bluetooth bluetooth_enabled")
 (defpoll vpn_enabled :interval "1s" "scripts/vpn vpn_enabled")
+       

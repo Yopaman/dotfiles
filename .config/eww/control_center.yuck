@@ -3,7 +3,7 @@
      (box :class "control-center-background" 
       :orientation "h"
       :height 220
-    (children)))
+      (children)))
 
 
 ; Volume control 
@@ -58,7 +58,7 @@
             :svg {wifi_enabled == "enabled" ? "./images/wifi_dark.svg" : "./images/wifi.svg"}
             :color "white" 
             :clicked {wifi_enabled == "enabled" ? "clicked" : ""} 
-            :action {wifi_enabled == "enabled" ? "./scripts/nm wifi_off" : "./scripts/nm wifi_on"})
+            :action {wifi_enabled == "enabled" ? "./scripts/network wifi_off" : "./scripts/network wifi_on"})
           (control_button 
             :svg {bluetooth_enabled == "enabled" ? "./images/bluetooth_dark.svg" : "./images/bluetooth.svg"}
             :color "white" 

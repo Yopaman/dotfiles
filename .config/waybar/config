@@ -7,13 +7,13 @@
     "margin-right": 0,
     "margin-top": 0,
     "modules-left": ["hyprland/window"],
-    "modules-center": ["wlr/workspaces"],
+    "modules-center": ["hyprland/workspaces"],
     "modules-right": ["pulseaudio", "network", "backlight", "keyboard-state", "battery", "custom/menu", "clock", "tray"],
     "river/tags": {
         "tag-labels": ["❶","❷","❸","❹","❺","❻","❼","❽","❾"],
         "num-tags": 8
     },
-    "wlr/workspaces": {
+    "hyprland/workspaces": {
         "disable-scroll": true,
         "all-outputs": true,
         "active-only": false,
