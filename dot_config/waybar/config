@@ -1,0 +1,103 @@
+[
+  {
+    "layer": "top",
+    "height": 40,
+    "spacing": 0,
+    "modules-center": [
+      "hyprland/workspaces"
+    ],
+    "modules-left": [
+      "hyprland/window"
+    ],
+    "modules-right": [
+      "pulseaudio",
+      "network",
+      "backlight",
+      "battery",
+      "custom/menu",
+      "clock",
+      "tray"
+    ],
+    "backlight": {
+      "format": "{percent}% {icon}",
+      "format-icons": [
+        ""
+      ]
+    },
+    "battery": {
+      "format": "{capacity}% {icon}",
+      "format-alt": "{time} {icon}",
+      "format-charging": "{capacity}% ",
+      "format-icons": [
+        "",
+        "",
+        "",
+        "",
+        ""
+      ],
+      "format-plugged": "{capacity}% ",
+      "states": {
+        "critical": 15,
+        "warning": 30
+      }
+    },
+    "clock": {
+      "format-alt": "{:%Y-%m-%d}",
+      "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>"
+    },
+    "custom/menu": {
+      "format": "▼",
+      "interval": "once",
+      "on-click": "swaync-client -t",
+      "return-type": "json",
+      "tooltip": false
+    },
+    "hyprland/window": {
+      "format": "{initialTitle}"
+    },
+    "hyprland/workspaces": {
+      "format": "{icon}",
+      "format-icons": {
+        "1": "1",
+        "2": "2",
+        "3": "3",
+        "4": "4",
+        "5": "5"
+      },
+      "persistent-workspaces": {
+        "*": 5
+      }
+    },
+        "network": {
+      "format-alt": "{ifname}: {ipaddr}/{cidr}",
+      "format-disconnected": "Disconnected ⚠",
+      "format-ethernet": "{ipaddr}/{cidr} 󰈀",
+      "format-linked": "{ifname} (No IP) 󰈀",
+      "format-wifi": "{essid} ",
+      "tooltip-format": "{ifname} via {gwaddr} 󰈀"
+    },
+    "pulseaudio": {
+      "format": "{volume}% {icon}",
+      "format-bluetooth": "{volume}% {icon}",
+      "format-bluetooth-muted": "{icon}",
+      "format-icons": {
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ],
+        "hands-free": "",
+        "headphone": "",
+        "headset": "",
+        "phone": "",
+        "portable": ""
+      },
+      "format-muted": "{icon}",
+      "on-click": "pamixer -t"
+    },
+    "tray": {
+      "spacing": 10
+    }
+  }
+]
