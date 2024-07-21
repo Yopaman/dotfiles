@@ -66,9 +66,9 @@
       },
       "persistent-workspaces": {
         "*": 5
-      }
+      },
     },
-        "network": {
+    "network": {
       "format-alt": "{ifname}: {ipaddr}/{cidr}",
       "format-disconnected": "Disconnected ⚠",
       "format-ethernet": "{ipaddr}/{cidr} 󰈀",
